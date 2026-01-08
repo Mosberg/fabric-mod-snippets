@@ -196,5 +196,9 @@
   "bugs": {
     "url": "https://github.com/mosberg/fabric-mod-snippets/issues"
   },
-  "homepage": "https://mosberg.github.io/fabric-mod-snippets"
+  "homepage": "https://mosberg.github.io/fabric-mod-snippets",
+  "dependencies": {},
+  "devDependencies": {
+    "@vscode/vsce": "3.7.1"
+  }
 }
