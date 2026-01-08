@@ -1,0 +1,191 @@
+{
+  "Block: Basic": {
+    "prefix": "block.basic",
+    "body": [
+      "public static final Block ${1:BLOCK_NAME} = new Block(",
+      "        AbstractBlock.Settings.create()",
+      "                .strength(${2:1.5f})",
+      "                .requiresTool()",
+      ");"
+    ],
+    "description": "Create a basic block"
+  },
+  "Block: Ore": {
+    "prefix": "block.ore",
+    "body": [
+      "public static final Block ${1:ORE_BLOCK} = new Block(",
+      "        AbstractBlock.Settings.create()",
+      "                .strength(${2:3.0f})",
+      "                .requiresTool()",
+      "                .luminance(state -> ${3:0})",
+      ");"
+    ],
+    "description": "Create an ore block"
+  },
+  "DataGen: Loot Provider": {
+    "prefix": "datagen.loot",
+    "body": [
+      "public class ${1:LootProvider} extends FabricBlockLootTableProvider {",
+      "",
+      "    public ${1:LootProvider}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generate() {",
+      "        addDrop(${2:BLOCK});",
+      "    }",
+      "}"
+    ],
+    "description": "Block loot table generator"
+  },
+  "DataGen: Model Provider": {
+    "prefix": "datagen.model",
+    "body": [
+      "public class ${1:ModelProvider} extends FabricModelProvider {",
+      "",
+      "    public ${1:ModelProvider}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {",
+      "        blockStateModelGenerator.registerSimpleCubeAll(${2:BLOCK});",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generateItemModels(ItemModelGenerator itemModelGenerator) {",
+      "        itemModelGenerator.register(${3:ITEM}, Models.GENERATED);",
+      "    }",
+      "}"
+    ],
+    "description": "Block/item model generator"
+  },
+  "DataGen: Provider Setup": {
+    "prefix": "datagen.setup",
+    "body": [
+      "public class ${1:ModDataGenerator} implements DataGeneratorEntrypoint {",
+      "",
+      "    @Override",
+      "    public void onInitializeDataGenerator(FabricDataGenerator generator) {",
+      "        FabricDataGenerator.Pack pack = generator.createPack();",
+      "",
+      "        pack.addProvider(${2:ModelProvider}::new);",
+      "        pack.addProvider(${3:LootProvider}::new);",
+      "        pack.addProvider(${4:RecipeProvider}::new);",
+      "    }",
+      "}"
+    ],
+    "description": "Fabric Data Generator initializer"
+  },
+  "DataGen: Recipe Provider": {
+    "prefix": "datagen.recipe",
+    "body": [
+      "public class ${1:RecipeProvider} extends FabricRecipeProvider {",
+      "",
+      "    public ${1:RecipeProvider}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generate(Consumer<RecipeJsonProvider> exporter) {",
+      "        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ${2:ITEM})",
+      "                .pattern(\"###\")",
+      "                .pattern(\"###\")",
+      "                .pattern(\"###\")",
+      "                .input('#', ${3:INGREDIENT})",
+      "                .criterion(\"has_item\", conditionsFromItem(${3:INGREDIENT}))",
+      "                .offerTo(exporter);",
+      "    }",
+      "}"
+    ],
+    "description": "Recipe generator"
+  },
+  "Entity: Class": {
+    "prefix": "entity.class",
+    "body": [
+      "public class ${1:MyEntity} extends PathAwareEntity {",
+      "",
+      "    public ${1:MyEntity}(EntityType<? extends PathAwareEntity> type, World world) {",
+      "        super(type, world);",
+      "    }",
+      "",
+      "    @Override",
+      "    protected void initGoals() {",
+      "        this.goalSelector.add(0, new SwimGoal(this));",
+      "        this.goalSelector.add(1, new WanderAroundGoal(this, 1.0));",
+      "    }",
+      "",
+      "}"
+    ],
+    "description": "Basic Fabric entity class"
+  },
+  "Entity: Renderer": {
+    "prefix": "entity.renderer",
+    "body": [
+      "EntityRendererRegistry.register(${1:ENTITY_TYPE},",
+      "        ctx -> new MobEntityRenderer<>(ctx, new ${2:MyEntityModel}(ctx.getPart(${3:ModelLayers.MY_ENTITY})), ${4:0.5f}));"
+    ],
+    "description": "Entity renderer registration"
+  },
+  "Item: Basic": {
+    "prefix": "item.basic",
+    "body": [
+      "public static final Item ${1:ITEM_NAME} = new Item(new Item.Settings()",
+      "        .maxCount(${2:64})",
+      ");"
+    ],
+    "description": "Create a basic item"
+  },
+  "Item: Food": {
+    "prefix": "item.food",
+    "body": [
+      "public static final Item ${1:FOOD_ITEM} = new Item(new Item.Settings()",
+      "        .food(new FoodComponent.Builder()",
+      "                .nutrition(${2:4})",
+      "                .saturationModifier(${3:0.3f})",
+      "                .build())",
+      ");"
+    ],
+    "description": "Create a food item"
+  },
+  "Registry: Block": {
+    "prefix": "reg.block",
+    "body": [
+      "public static final Block ${1:BLOCK_NAME} = Registry.register(Registries.BLOCK,",
+      "        Identifier.of(${2:MOD_ID}, \"${3:block_name}\"),",
+      "        new ${4:Block}(AbstractBlock.Settings.create().strength(${5:1.5f})));"
+    ],
+    "description": "Register a Fabric block"
+  },
+  "Registry: Block Item": {
+    "prefix": "reg.blockitem",
+    "body": [
+      "public static final Item ${1:BLOCK_ITEM_NAME} = Registry.register(Registries.ITEM,",
+      "        Identifier.of(${2:MOD_ID}, \"${3:block_name}\"),",
+      "        new BlockItem(${4:BLOCK_REFERENCE}, new Item.Settings()));"
+    ],
+    "description": "Register a block item"
+  },
+  "Registry: Entity Type": {
+    "prefix": "reg.entity",
+    "body": [
+      "public static final EntityType<${1:MyEntity}> ${2:MY_ENTITY} = Registry.register(",
+      "        Registries.ENTITY_TYPE,",
+      "        Identifier.of(${3:MOD_ID}, \"${4:my_entity}\"),",
+      "        EntityType.Builder.create(${1:MyEntity}::new, SpawnGroup.${5:CREATURE})",
+      "                .dimensions(EntityDimensions.fixed(${6:0.6f}, ${7:1.95f}))",
+      "                .build());"
+    ],
+    "description": "Register a Fabric entity type"
+  },
+  "Registry: Item": {
+    "prefix": "reg.item",
+    "body": [
+      "public static final Item ${1:ITEM_NAME} = Registry.register(Registries.ITEM,",
+      "        Identifier.of(${2:MOD_ID}, \"${3:item_name}\"),",
+      "        new Item(new Item.Settings()));"
+    ],
+    "description": "Register a Fabric item"
+  }
+}

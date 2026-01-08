@@ -1,0 +1,20 @@
+{
+  "Fabric Block Loot Tables": {
+    "prefix": "fabric-loot-block",
+    "description": "Block loot table provider",
+    "body": [
+      "public class ${1:ModBlockLootTables} extends FabricBlockLootTableProvider {",
+      "    public ${1:ModBlockLootTables}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    protected void generate() {",
+      "        addDrop(${2:EXAMPLE_BLOCK});",
+      "        ${3:// addDrop(ORE_BLOCK, oreDrops(ORE_BLOCK, RAW_ORE));}",
+      "        ${4:// addDropWithSilkTouch(GLASS_BLOCK);}",
+      "    }",
+      "}"
+    ]
+  }
+}

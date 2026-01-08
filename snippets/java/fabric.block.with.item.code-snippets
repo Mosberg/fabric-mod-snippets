@@ -1,0 +1,19 @@
+{
+  "Fabric Block With Item": {
+    "prefix": "fabric-block-item",
+    "description": "Register a block with corresponding BlockItem",
+    "body": [
+      "public static final Block ${1:EXAMPLE_BLOCK} = Registry.register(",
+      "    Registries.BLOCK,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_block}\"),",
+      "    new Block(AbstractBlock.Settings.copy(Blocks.${4:STONE})${5:.requiresTool()})",
+      ");",
+      "",
+      "public static final Item ${1:EXAMPLE_BLOCK}_ITEM = Registry.register(",
+      "    Registries.ITEM,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_block}\"),",
+      "    new BlockItem(${1:EXAMPLE_BLOCK}, new Item.Settings()${6:})",
+      ");"
+    ]
+  }
+}

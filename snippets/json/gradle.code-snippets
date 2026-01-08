@@ -1,0 +1,118 @@
+{
+  "Gradle JVM Args": {
+    "prefix": "gradle.jvm",
+    "description": "High-memory Gradle JVM args for Fabric modding",
+    "body": [
+      "# JVM Arguments - Increase memory available to Gradle",
+      "org.gradle.jvmargs=-Xmx${1:4}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200"
+    ]
+  },
+
+  "Gradle Performance Flags": {
+    "prefix": "gradle.flags",
+    "description": "Parallel, caching, and configuration cache flags",
+    "body": [
+      "# Gradle Performance Optimizations",
+      "org.gradle.parallel=true",
+      "org.gradle.caching=true",
+      "org.gradle.configuration-cache=true"
+    ]
+  },
+
+  "Mod Properties Block": {
+    "prefix": "mod.props",
+    "description": "Fabric mod metadata properties",
+    "body": [
+      "# Mod Properties",
+      "maven_group=${1:com.example}",
+      "archives_base_name=${2:modid}",
+      "",
+      "mod_id=${3:modid}",
+      "mod_version=${4:1.0.0}",
+      "mod_name=${5:Mod Name}",
+      "mod_description=${6:A Minecraft Fabric mod}",
+      "mod_author=${7:Author}",
+      "mod_homepage=${8:https://example.com}",
+      "mod_sources=${9:https://github.com/user/repo}",
+      "mod_issues=${10:https://github.com/user/repo/issues}",
+      "mod_license=${11:MIT}"
+    ]
+  },
+
+  "Fabric Properties Block": {
+    "prefix": "fabric.props",
+    "description": "Minecraft, Loader, Yarn, Loom, API, Java, Gradle versions",
+    "body": [
+      "# Fabric Properties",
+      "minecraft_version=${1:1.21.4}",
+      "loader_version=${2:0.16.10}",
+      "yarn_mappings=${3:1.21.4+build.1}",
+      "loom_version=${4:1.10-SNAPSHOT}",
+      "fabric_api_version=${5:0.114.0+1.21.4}",
+      "java_version=${6:21}",
+      "gradle_version=${7:8.11.1}"
+    ]
+  },
+
+  "Dependency Versions Block": {
+    "prefix": "deps.props",
+    "description": "Dependency version declarations",
+    "body": [
+      "# Dependencies",
+      "gson_version=${1:2.11.0}",
+      "slf4j_version=${2:2.0.16}",
+      "annotations_version=${3:26.0.1}"
+    ]
+  },
+
+  "Testing Versions Block": {
+    "prefix": "test.props",
+    "description": "Testing library versions",
+    "body": ["# Testing", "junit_version=${1:5.11.4}"]
+  },
+
+  "Full Fabric Mod gradle.properties": {
+    "prefix": "gradle.full",
+    "description": "Complete gradle.properties for a Fabric mod",
+    "body": [
+      "# JVM Arguments - Increase memory available to Gradle",
+      "org.gradle.jvmargs=-Xmx${1:4}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200",
+      "",
+      "# Gradle Performance Optimizations",
+      "org.gradle.parallel=true",
+      "org.gradle.caching=true",
+      "org.gradle.configuration-cache=true",
+      "",
+      "# Mod Properties",
+      "maven_group=${2:com.example}",
+      "archives_base_name=${3:modid}",
+      "",
+      "mod_id=${4:modid}",
+      "mod_version=${5:1.0.0}",
+      "mod_name=${6:Mod Name}",
+      "mod_description=${7:A Minecraft Fabric mod}",
+      "mod_author=${8:Author}",
+      "mod_homepage=${9:https://example.com}",
+      "mod_sources=${10:https://github.com/user/repo}",
+      "mod_issues=${11:https://github.com/user/repo/issues}",
+      "mod_license=${12:MIT}",
+      "",
+      "# Fabric Versions",
+      "minecraft_version=${13:1.21.4}",
+      "loader_version=${14:0.16.10}",
+      "yarn_mappings=${15:1.21.4+build.1}",
+      "loom_version=${16:1.10-SNAPSHOT}",
+      "fabric_api_version=${17:0.114.0+1.21.4}",
+      "java_version=${18:21}",
+      "gradle_version=${19:8.11.1}",
+      "",
+      "# Dependencies",
+      "gson_version=${20:2.11.0}",
+      "slf4j_version=${21:2.0.16}",
+      "annotations_version=${22:26.0.1}",
+      "",
+      "# Testing",
+      "junit_version=${23:5.11.4}"
+    ]
+  }
+}

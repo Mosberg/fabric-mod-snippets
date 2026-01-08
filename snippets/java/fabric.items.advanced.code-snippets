@@ -1,0 +1,139 @@
+{
+  "Custom Armor Item": {
+    "prefix": "item.armor",
+    "description": "Create a custom armor item",
+    "body": [
+      "public static final Item ${1:EXAMPLE_HELMET} = Registry.register(",
+      "    Registries.ITEM,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_helmet}\"),",
+      "    new ArmorItem(${4:MOD_ARMOR_MATERIALS.EXAMPLE}, ArmorItem.Type.${5:HELMET}, new Item.Settings()${6:.maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))})",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Custom Armor Material": {
+    "prefix": "item.armor.material",
+    "description": "Create a custom armor material",
+    "body": [
+      "public static final RegistryEntry<ArmorMaterial> ${1:EXAMPLE_MATERIAL} = Registry.registerReference(",
+      "    Registries.ARMOR_MATERIAL,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example}\"),",
+      "    new ArmorMaterial(",
+      "        Map.of(",
+      "            ArmorItem.Type.HELMET, ${4:2},",
+      "            ArmorItem.Type.CHESTPLATE, ${5:6},",
+      "            ArmorItem.Type.LEGGINGS, ${6:5},",
+      "            ArmorItem.Type.BOOTS, ${7:2}",
+      "        ),",
+      "        ${8:15}, // Enchantability",
+      "        SoundEvents.${9:ITEM_ARMOR_EQUIP_IRON},",
+      "        () -> Ingredient.ofItems(${10:MOD_ITEMS.EXAMPLE_INGOT}),",
+      "        List.of(",
+      "            new ArmorMaterial.Layer(Identifier.of(${2:MOD_ID}, \"${3:example}\"))",
+      "        ),",
+      "        ${11:0.0F}, // Toughness",
+      "        ${12:0.0F}  // Knockback resistance",
+      "    )",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Custom Tool Item": {
+    "prefix": "item.tool",
+    "description": "Create a custom tool item",
+    "body": [
+      "public static final Item ${1:EXAMPLE_PICKAXE} = Registry.register(",
+      "    Registries.ITEM,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_pickaxe}\"),",
+      "    new PickaxeItem(${4:MOD_TOOL_MATERIALS.EXAMPLE}, ${5:1}, ${6:-2.8F}, new Item.Settings())",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Custom Tool Material": {
+    "prefix": "item.tool.material",
+    "description": "Create a custom tool material",
+    "body": [
+      "public static final ToolMaterial ${1:EXAMPLE_MATERIAL} = new ToolMaterial(",
+      "    BlockTags.${2:INCORRECT_FOR_IRON_TOOL}, // Incorrect for this tier",
+      "    ${3:250}, // Durability",
+      "    ${4:6.0F}, // Mining speed",
+      "    ${5:2.0F}, // Attack damage",
+      "    ${6:14}, // Enchantability",
+      "    () -> Ingredient.ofItems(${7:MOD_ITEMS.EXAMPLE_INGOT})",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Food Item": {
+    "prefix": "item.food.advanced",
+    "description": "Create a food item with status effects",
+    "body": [
+      "public static final Item ${1:EXAMPLE_FOOD} = Registry.register(",
+      "    Registries.ITEM,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_food}\"),",
+      "    new Item(new Item.Settings()",
+      "        .food(new FoodComponent.Builder()",
+      "            .nutrition(${4:6})",
+      "            .saturationModifier(${5:0.6F})",
+      "            ${6:// .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 100, 1), 1.0F)}",
+      "            ${7:// .alwaysEdible()}",
+      "            ${8:// .snack()}",
+      "            .build()))",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Custom Item with Tooltip": {
+    "prefix": "item.tooltip",
+    "description": "Item class with custom tooltip",
+    "body": [
+      "public class ${1:MyItem} extends Item {",
+      "    ",
+      "    public ${1:MyItem}(Settings settings) {",
+      "        super(settings);",
+      "    }",
+      "    ",
+      "    @Override",
+      "    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {",
+      "        tooltip.add(Text.translatable(\"${2:item.modid.my_item.tooltip}\").formatted(Formatting.${3:GRAY}));",
+      "        super.appendTooltip(stack, context, tooltip, type);",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Block Item with Tooltip": {
+    "prefix": "item.blockitem.tooltip",
+    "description": "BlockItem with custom tooltip",
+    "body": [
+      "public class ${1:MyBlockItem} extends BlockItem {",
+      "    ",
+      "    public ${1:MyBlockItem}(Block block, Settings settings) {",
+      "        super(block, settings);",
+      "    }",
+      "    ",
+      "    @Override",
+      "    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {",
+      "        tooltip.add(Text.translatable(\"${2:block.modid.my_block.tooltip}\").formatted(Formatting.${3:GRAY}));",
+      "        super.appendTooltip(stack, context, tooltip, type);",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Fuel Item": {
+    "prefix": "item.fuel",
+    "description": "Register item as furnace fuel",
+    "body": [
+      "FuelRegistry.INSTANCE.add(${1:MOD_ITEMS.EXAMPLE_ITEM}, ${2:1600}); // ${3:8 items}"
+    ]
+  }
+}

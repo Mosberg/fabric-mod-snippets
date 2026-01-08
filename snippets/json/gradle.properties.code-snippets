@@ -1,0 +1,136 @@
+{
+  "Gradle JVM Performance Settings": {
+    "prefix": "gradle-jvm",
+    "description": "High-performance JVM and GC tuning for Gradle builds",
+    "body": [
+      "# JVM Arguments - Increase memory available to Gradle",
+      "org.gradle.jvmargs=-Xmx${1:4}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200",
+      ""
+    ]
+  },
+
+  "Gradle Build Optimizations": {
+    "prefix": "gradle-opt",
+    "description": "Enable parallel builds, caching, and configuration cache",
+    "body": [
+      "# Gradle Performance Optimizations",
+      "org.gradle.parallel=true",
+      "org.gradle.caching=true",
+      "org.gradle.configuration-cache=true",
+      ""
+    ]
+  },
+
+  "Fabric Mod Maven Coordinates": {
+    "prefix": "fabric-maven",
+    "description": "Maven group and archive base name for Fabric mods",
+    "body": [
+      "# Mod Properties",
+      "maven_group=${1:com.example}",
+      "archives_base_name=${2:modid}",
+      ""
+    ]
+  },
+
+  "Fabric Mod Metadata": {
+    "prefix": "fabric-mod-meta",
+    "description": "Fabric mod metadata used across build scripts",
+    "body": [
+      "mod_id=${1:modid}",
+      "mod_version=${2:1.0.0}",
+      "mod_name=${3:Mod Name}",
+      "mod_description=${4:A Minecraft Fabric mod}",
+      "mod_author=${5:Author}",
+      "mod_homepage=${6:https://example.com}",
+      "mod_sources=${7:https://github.com/user/repo}",
+      "mod_issues=${8:https://github.com/user/repo/issues}",
+      "mod_license=${9:MIT}",
+      ""
+    ]
+  },
+
+  "Fabric Core Versions": {
+    "prefix": "fabric-core",
+    "description": "Minecraft, Fabric Loader, Yarn mappings, and Loom versions",
+    "body": [
+      "# Fabric Properties",
+      "minecraft_version=${1:1.21.4}",
+      "loader_version=${2:0.16.10}",
+      "yarn_mappings=${3:1.21.4+build.1}",
+      "loom_version=${4:1.10-SNAPSHOT}",
+      "fabric_api_version=${5:0.114.0+1.21.4}",
+      ""
+    ]
+  },
+
+  "Java and Gradle Versions": {
+    "prefix": "java-gradle",
+    "description": "Java toolchain and Gradle version",
+    "body": ["java_version=${1:21}", "gradle_version=${2:8.11.1}", ""]
+  },
+
+  "Common Dependency Versions": {
+    "prefix": "deps-common",
+    "description": "Shared dependency version catalog entries",
+    "body": [
+      "# Dependencies",
+      "gson_version=${1:2.11.0}",
+      "slf4j_version=${2:2.0.16}",
+      "annotations_version=${3:26.0.1}",
+      ""
+    ]
+  },
+
+  "JUnit Testing Versions": {
+    "prefix": "deps-test",
+    "description": "JUnit version for testing",
+    "body": ["# Testing", "junit_version=${1:5.11.4}", ""]
+  },
+
+  "Full Fabric Gradle Properties Template": {
+    "prefix": "fabric-gradle-full",
+    "description": "Complete Fabric gradle.properties template",
+    "body": [
+      "# JVM Arguments - Increase memory available to Gradle",
+      "org.gradle.jvmargs=-Xmx${1:4}G -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200",
+      "",
+      "# Gradle Performance Optimizations",
+      "org.gradle.parallel=true",
+      "org.gradle.caching=true",
+      "org.gradle.configuration-cache=true",
+      "",
+      "# Mod Properties",
+      "maven_group=${2:com.example}",
+      "archives_base_name=${3:modid}",
+      "",
+      "mod_id=${4:modid}",
+      "mod_version=${5:1.0.0}",
+      "mod_name=${6:Mod Name}",
+      "mod_description=${7:A Minecraft Fabric mod}",
+      "mod_author=${8:Author}",
+      "mod_homepage=${9:https://example.com}",
+      "mod_sources=${10:https://github.com/user/repo}",
+      "mod_issues=${11:https://github.com/user/repo/issues}",
+      "mod_license=${12:MIT}",
+      "",
+      "# Fabric Versions",
+      "minecraft_version=${13:1.21.4}",
+      "loader_version=${14:0.16.10}",
+      "yarn_mappings=${15:1.21.4+build.1}",
+      "loom_version=${16:1.10-SNAPSHOT}",
+      "fabric_api_version=${17:0.114.0+1.21.4}",
+      "",
+      "# Toolchains",
+      "java_version=${18:21}",
+      "gradle_version=${19:8.11.1}",
+      "",
+      "# Dependencies",
+      "gson_version=${20:2.11.0}",
+      "slf4j_version=${21:2.0.16}",
+      "annotations_version=${22:26.0.1}",
+      "",
+      "# Testing",
+      "junit_version=${23:5.11.4}"
+    ]
+  }
+}

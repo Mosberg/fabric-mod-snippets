@@ -1,0 +1,13 @@
+{
+  "Fabric Item Registry": {
+    "prefix": "fabric-item",
+    "description": "Register a basic Fabric item",
+    "body": [
+      "public static final Item ${1:EXAMPLE_ITEM} = Registry.register(",
+      "    Registries.ITEM,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_item}\"),",
+      "    new Item(new Item.Settings()${4:.maxCount(64)})",
+      ");"
+    ]
+  }
+}

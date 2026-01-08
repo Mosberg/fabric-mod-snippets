@@ -1,0 +1,19 @@
+{
+  "Fabric Datagen Entrypoint": {
+    "prefix": "fabric-datagen",
+    "description": "Fabric DataGeneratorEntrypoint",
+    "body": [
+      "public class ${1:ModDataGenerator} implements DataGeneratorEntrypoint {",
+      "    @Override",
+      "    public void onInitializeDataGenerator(FabricDataGenerator generator) {",
+      "        FabricDataGenerator.Pack pack = generator.createPack();",
+      "",
+      "        ${2:pack.addProvider(ModModelProvider::new);}",
+      "        ${3:pack.addProvider(ModBlockLootProvider::new);}",
+      "        ${4:pack.addProvider(ModRecipeProvider::new);}",
+      "        ${5:pack.addProvider(ModBlockTagProvider::new);}",
+      "    }",
+      "}"
+    ]
+  }
+}

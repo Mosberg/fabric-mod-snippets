@@ -1,0 +1,154 @@
+{
+  "Player Block Break Event": {
+    "prefix": "event.player.block.break",
+    "description": "Listen to player block break event",
+    "body": [
+      "PlayerBlockBreakEvents.BEFORE.register((world, player, pos, state, blockEntity) -> {",
+      "    ${1:// Return false to cancel}",
+      "    return true;",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Attack Entity Event": {
+    "prefix": "event.attack.entity",
+    "description": "Listen to entity attack event",
+    "body": [
+      "AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {",
+      "    ${1:// Return ActionResult to control behavior}",
+      "    return ActionResult.PASS;",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Use Item Event": {
+    "prefix": "event.use.item",
+    "description": "Listen to item use event",
+    "body": [
+      "UseItemCallback.EVENT.register((player, world, hand) -> {",
+      "    ${1:// Return TypedActionResult to control behavior}",
+      "    return TypedActionResult.pass(player.getStackInHand(hand));",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Use Block Event": {
+    "prefix": "event.use.block",
+    "description": "Listen to block interaction event",
+    "body": [
+      "UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {",
+      "    ${1:// Return ActionResult to control behavior}",
+      "    return ActionResult.PASS;",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Server Tick Event": {
+    "prefix": "event.server.tick",
+    "description": "Listen to server tick event",
+    "body": [
+      "ServerTickEvents.END_SERVER_TICK.register(server -> {",
+      "    ${1:// Server tick logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "World Tick Event": {
+    "prefix": "event.world.tick",
+    "description": "Listen to world tick event",
+    "body": [
+      "ServerTickEvents.END_WORLD_TICK.register(world -> {",
+      "    ${1:// World tick logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Player Join Event": {
+    "prefix": "event.player.join",
+    "description": "Listen to player join server event",
+    "body": [
+      "ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {",
+      "    ServerPlayerEntity player = handler.getPlayer();",
+      "    ${1:// Player join logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Player Death Event": {
+    "prefix": "event.player.death",
+    "description": "Listen to player death event",
+    "body": [
+      "ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {",
+      "    ${1:// Player death/respawn logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Entity Load Event": {
+    "prefix": "event.entity.load",
+    "description": "Listen to entity load event",
+    "body": [
+      "ServerEntityEvents.ENTITY_LOAD.register((entity, world) -> {",
+      "    ${1:// Entity load logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Loot Table Modify Event": {
+    "prefix": "event.loot.modify",
+    "description": "Modify loot tables",
+    "body": [
+      "LootTableEvents.MODIFY.register((key, tableBuilder, source, wrapperLookup) -> {",
+      "    if (${1:EXAMPLE_LOOT_TABLE_ID}.equals(key.getValue())) {",
+      "        LootPool.Builder pool = LootPool.builder()",
+      "            .with(ItemEntry.builder(${2:Items.DIAMOND}))",
+      "            .conditionally(RandomChanceLootCondition.builder(${3:0.5f}));",
+      "        tableBuilder.pool(pool);",
+      "    }",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Server Starting Event": {
+    "prefix": "event.server.starting",
+    "description": "Listen to server starting event",
+    "body": [
+      "ServerLifecycleEvents.SERVER_STARTING.register(server -> {",
+      "    ${1:// Server starting logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Server Started Event": {
+    "prefix": "event.server.started",
+    "description": "Listen to server started event",
+    "body": [
+      "ServerLifecycleEvents.SERVER_STARTED.register(server -> {",
+      "    ${1:// Server started logic}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Item Crafted Event": {
+    "prefix": "event.item.crafted",
+    "description": "Listen to item crafted event",
+    "body": [
+      "ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {",
+      "    ${1:// Crafting logic}",
+      "});",
+      "$0"
+    ]
+  }
+}

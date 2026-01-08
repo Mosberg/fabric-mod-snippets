@@ -1,0 +1,22 @@
+{
+  "Fabric Block Tags": {
+    "prefix": "fabric-tags-block",
+    "description": "Block tag provider",
+    "body": [
+      "public class ${1:ModBlockTagProvider} extends FabricTagProvider.BlockTagProvider {",
+      "    public ${1:ModBlockTagProvider}(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registries) {",
+      "        super(output, registries);",
+      "    }",
+      "",
+      "    @Override",
+      "    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {",
+      "        getOrCreateTagBuilder(${2:BlockTags.PICKAXE_MINEABLE})",
+      "            .add(${3:EXAMPLE_BLOCK});",
+      "        ${4:}",
+      "        ${5:// getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)}",
+      "        ${6://     .add(EXAMPLE_BLOCK);}",
+      "    }",
+      "}"
+    ]
+  }
+}

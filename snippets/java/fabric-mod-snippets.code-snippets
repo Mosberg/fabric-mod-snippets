@@ -1,0 +1,180 @@
+{
+  "Item Registration": {
+    "prefix": "fabric-item-reg",
+    "body": [
+      "public static final Item ${1:EXAMPLE_ITEM} = registerItem(\"${2:example_item}\", new Item(new Item.Settings()${3:.maxCount(64)}));",
+      "",
+      "private static Item registerItem(String name, Item item) {",
+      "    return Registry.register(Registries.ITEM, Identifier.of(${4:MOD_ID}, name), item);",
+      "}",
+      "",
+      "public static void registerModItems() {",
+      "    ${5:// Register items here}",
+      "}"
+    ],
+    "description": "Register items with helper method pattern"
+  },
+  "Block Registration": {
+    "prefix": "fabric-block-reg",
+    "body": [
+      "public static final Block ${1:EXAMPLE_BLOCK} = registerBlock(\"${2:example_block}\", new Block(AbstractBlock.Settings.create().strength(${3:4.0f})${4:.requiresTool()}));",
+      "",
+      "private static Block registerBlock(String name, Block block) {",
+      "    registerBlockItem(name, block);",
+      "    return Registry.register(Registries.BLOCK, Identifier.of(${5:MOD_ID}, name), block);",
+      "}",
+      "",
+      "private static void registerBlockItem(String name, Block block) {",
+      "    Registry.register(Registries.ITEM, Identifier.of(${5:MOD_ID}, name), new BlockItem(block, new Item.Settings()));",
+      "}",
+      "",
+      "public static void registerModBlocks() {",
+      "    ${6:// Register blocks here}",
+      "}"
+    ],
+    "description": "Register blocks with helper method pattern and automatic BlockItem"
+  },
+  "Entity Registration": {
+    "prefix": "fabric-entity-reg",
+    "body": [
+      "public static final EntityType<${1:ExampleEntity}> ${2:EXAMPLE_ENTITY} = registerEntity(\"${3:example_entity}\",",
+      "    EntityType.Builder.create(${1:ExampleEntity}::new, SpawnGroup.${4:CREATURE})",
+      "        .dimensions(${5:0.6f}, ${6:1.8f}).build());",
+      "",
+      "private static <T extends Entity> EntityType<T> registerEntity(String name, EntityType<T> entityType) {",
+      "    return Registry.register(Registries.ENTITY_TYPE, Identifier.of(${7:MOD_ID}, name), entityType);",
+      "}",
+      "",
+      "public static void registerModEntities() {",
+      "    FabricDefaultAttributeRegistry.register(${2:EXAMPLE_ENTITY}, ${1:ExampleEntity}.createMobAttributes());",
+      "    ${8:// Register entities here}",
+      "}"
+    ],
+    "description": "Register entity types with helper method and default attributes"
+  },
+  "Registry Setup": {
+    "prefix": "fabric-registry-setup",
+    "body": [
+      "public class ${1:ModRegistries} {",
+      "    public static void register() {",
+      "        ${2:ModItems}.registerModItems();",
+      "        ${3:ModBlocks}.registerModBlocks();",
+      "        ${4:ModEntities}.registerModEntities();",
+      "    }",
+      "}"
+    ],
+    "description": "Central registry class to organize all mod registration calls"
+  },
+  "Data Generator Setup": {
+    "prefix": "fabric-data-gen",
+    "body": [
+      "public class ${1:ModDataGenerator} implements DataGeneratorEntrypoint {",
+      "    @Override",
+      "    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {",
+      "        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();",
+      "        ${2:pack.addProvider(ModBlockTagProvider::new);}",
+      "        ${3:pack.addProvider(ModItemTagProvider::new);}",
+      "        ${4:pack.addProvider(ModLootTableProvider::new);}",
+      "        ${5:pack.addProvider(ModModelProvider::new);}",
+      "        ${6:pack.addProvider(ModRecipeProvider::new);}",
+      "    }",
+      "}"
+    ],
+    "description": "Data generation entry point with all common providers"
+  },
+  "Block Tag Provider": {
+    "prefix": "fabric-block-tag-provider",
+    "body": [
+      "public class ${1:ModBlockTagProvider} extends FabricTagProvider.BlockTagProvider {",
+      "    public ${1:ModBlockTagProvider}(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {",
+      "        super(output, registriesFuture);",
+      "    }",
+      "",
+      "    @Override",
+      "    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {",
+      "        getOrCreateTagBuilder(${2:BlockTags.PICKAXE_MINEABLE})",
+      "            .add(${3:ModBlocks.EXAMPLE_BLOCK});",
+      "    }",
+      "}"
+    ],
+    "description": "Block tag provider for data generation (mining levels, tool types)"
+  },
+  "Item Tag Provider": {
+    "prefix": "fabric-item-tag-provider",
+    "body": [
+      "public class ${1:ModItemTagProvider} extends FabricTagProvider.ItemTagProvider {",
+      "    public ${1:ModItemTagProvider}(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {",
+      "        super(output, registriesFuture);",
+      "    }",
+      "",
+      "    @Override",
+      "    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {",
+      "        getOrCreateTagBuilder(${2:ItemTags.SWORDS})",
+      "            .add(${3:ModItems.EXAMPLE_ITEM});",
+      "    }",
+      "}"
+    ],
+    "description": "Item tag provider for data generation (categories, groups)"
+  },
+  "Loot Table Provider": {
+    "prefix": "fabric-loot-table-provider",
+    "body": [
+      "public class ${1:ModLootTableProvider} extends FabricBlockLootTableProvider {",
+      "    public ${1:ModLootTableProvider}(FabricDataOutput dataOutput) {",
+      "        super(dataOutput);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generate() {",
+      "        addDrop(${2:ModBlocks.EXAMPLE_BLOCK});",
+      "        ${3:// addDrop(BLOCK); // Drops itself}",
+      "        ${4:// addDrop(ORE, oreDrops(ORE, RAW_ORE)); // Custom drops}",
+      "    }",
+      "}"
+    ],
+    "description": "Block loot table provider for data generation"
+  },
+  "Model Provider": {
+    "prefix": "fabric-model-provider",
+    "body": [
+      "public class ${1:ModModelProvider} extends FabricModelProvider {",
+      "    public ${1:ModModelProvider}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {",
+      "        blockStateModelGenerator.registerSimpleCubeAll(${2:ModBlocks.EXAMPLE_BLOCK});",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generateItemModels(ItemModelGenerator itemModelGenerator) {",
+      "        itemModelGenerator.register(${3:ModItems.EXAMPLE_ITEM}, Models.${4:GENERATED});",
+      "    }",
+      "}"
+    ],
+    "description": "Model provider for block states and item models"
+  },
+  "Recipe Provider": {
+    "prefix": "fabric-recipe-provider",
+    "body": [
+      "public class ${1:ModRecipeProvider} extends FabricRecipeProvider {",
+      "    public ${1:ModRecipeProvider}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generate(Consumer<RecipeJsonProvider> exporter) {",
+      "        ShapedRecipeJsonBuilder.create(RecipeCategory.${2:MISC}, ${3:ModItems.EXAMPLE_ITEM})",
+      "            .pattern(\"${4:XXX}\")",
+      "            .pattern(\"${5:XXX}\")",
+      "            .pattern(\"${6:XXX}\")",
+      "            .input('${7:X}', ${8:Items.STICK})",
+      "            .criterion(hasItem(${8:Items.STICK}), conditionsFromItem(${8:Items.STICK}))",
+      "            .offerTo(exporter);",
+      "    }",
+      "}"
+    ],
+    "description": "Recipe provider for crafting recipes in data generation"
+  }
+}

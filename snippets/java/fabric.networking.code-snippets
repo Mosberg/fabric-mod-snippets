@@ -1,0 +1,114 @@
+{
+  "Packet Identifier": {
+    "prefix": "packet.id",
+    "description": "Create a packet identifier",
+    "body": [
+      "public static final Identifier ${1:EXAMPLE_PACKET} = Identifier.of(${2:MOD_ID}, \"${3:example_packet}\");"
+    ]
+  },
+
+  "Server Packet Handler": {
+    "prefix": "packet.server.handler",
+    "description": "Register server-side packet handler",
+    "body": [
+      "ServerPlayNetworking.registerGlobalReceiver(${1:PACKET_ID}, (server, player, handler, buf, responseSender) -> {",
+      "    ${2:// Read packet data}",
+      "    ${3:// int data = buf.readInt();}",
+      "    ",
+      "    server.execute(() -> {",
+      "        ${4:// Process on server thread}",
+      "    });",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Client Packet Handler": {
+    "prefix": "packet.client.handler",
+    "description": "Register client-side packet handler",
+    "body": [
+      "ClientPlayNetworking.registerGlobalReceiver(${1:PACKET_ID}, (client, handler, buf, responseSender) -> {",
+      "    ${2:// Read packet data}",
+      "    ${3:// int data = buf.readInt();}",
+      "    ",
+      "    client.execute(() -> {",
+      "        ${4:// Process on client thread}",
+      "    });",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Send Packet to Server": {
+    "prefix": "packet.send.server",
+    "description": "Send packet from client to server",
+    "body": [
+      "PacketByteBuf buf = PacketByteBufs.create();",
+      "${1:// buf.writeInt(data);}",
+      "ClientPlayNetworking.send(${2:PACKET_ID}, buf);"
+    ]
+  },
+
+  "Send Packet to Client": {
+    "prefix": "packet.send.client",
+    "description": "Send packet from server to client",
+    "body": [
+      "PacketByteBuf buf = PacketByteBufs.create();",
+      "${1:// buf.writeInt(data);}",
+      "ServerPlayNetworking.send(${2:player}, ${3:PACKET_ID}, buf);"
+    ]
+  },
+
+  "Send Packet to All Players": {
+    "prefix": "packet.send.all",
+    "description": "Send packet to all players",
+    "body": [
+      "PacketByteBuf buf = PacketByteBufs.create();",
+      "${1:// buf.writeInt(data);}",
+      "for (ServerPlayerEntity player : ${2:server}.getPlayerManager().getPlayerList()) {",
+      "    ServerPlayNetworking.send(player, ${3:PACKET_ID}, buf);",
+      "}"
+    ]
+  },
+
+  "Send Packet to Tracking Players": {
+    "prefix": "packet.send.tracking",
+    "description": "Send packet to players tracking an entity",
+    "body": [
+      "PacketByteBuf buf = PacketByteBufs.create();",
+      "${1:// buf.writeInt(data);}",
+      "PlayerLookup.tracking(${2:entity}).forEach(player -> {",
+      "    ServerPlayNetworking.send(player, ${3:PACKET_ID}, buf);",
+      "});"
+    ]
+  },
+
+  "Custom Packet Payload": {
+    "prefix": "packet.payload",
+    "description": "Create a custom packet payload record",
+    "body": [
+      "public record ${1:ExamplePayload}(${2:int data}) implements CustomPayload {",
+      "    public static final Id<${1:ExamplePayload}> ID = new Id<>(Identifier.of(${3:MOD_ID}, \"${4:example}\"));",
+      "    public static final PacketCodec<PacketByteBuf, ${1:ExamplePayload}> CODEC = PacketCodec.tuple(",
+      "        PacketCodecs.${5:INTEGER}, ${1:ExamplePayload}::${2:data},",
+      "        ${1:ExamplePayload}::new",
+      "    );",
+      "    ",
+      "    @Override",
+      "    public Id<? extends CustomPayload> getId() {",
+      "        return ID;",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Register Payload Type": {
+    "prefix": "packet.payload.register",
+    "description": "Register a custom payload type",
+    "body": [
+      "PayloadTypeRegistry.playC2S().register(${1:ExamplePayload}.ID, ${1:ExamplePayload}.CODEC);",
+      "$0"
+    ]
+  }
+}

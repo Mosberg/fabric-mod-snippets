@@ -1,0 +1,200 @@
+{
+  "name": "fabric-mod-snippets",
+  "displayName": "Minecraft 1.21.11 Fabric Mod Snippets",
+  "description": "Comprehensive VSCode snippets for Minecraft Fabric mod development (registries, items, blocks, entities, data generation, and more).",
+  "version": "1.0.0",
+  "publisher": "Mosberg",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "icon": "icon.png",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.json"
+      },
+      {
+        "language": "json",
+        "path": "./snippets/json/fabric.json"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric-mod-snippets.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.block.entity.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.block.loot.tables.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.block.registry.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.block.tags.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.block.with.item.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.commands.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.datagen.entrypoint.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.entity.attributes.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.entity.type.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.events.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.identifier.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.item.model.provider.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.item.registry.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.itemgroup.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.items.advanced.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.mixins.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.networking.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.screen.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.tool.item.code-snippets"
+      },
+      {
+        "language": "java",
+        "path": "./snippets/java/fabric.world.generation.code-snippets"
+      },
+      {
+        "language": "properties",
+        "path": "./snippets/json/gradle.code-snippets"
+      },
+      {
+        "language": "properties",
+        "path": "./snippets/json/gradle.properties.code-snippets"
+      }
+    ]
+  },
+  "gradle.properties": {
+    "mod_properties": {
+      "maven_group": "${maven_group}",
+      "archives_base_name": "${mod_id}",
+      "mod_id": "${mod_id}",
+      "mod_version": "${mod_version}",
+      "mod_name": "${mod_name}",
+      "mod_description": "${mod_description}",
+      "mod_author": "${mod_author}",
+      "mod_homepage": "${mod_homepage}",
+      "mod_sources": "${mod_sources}",
+      "mod_issues": "${mod_issues}",
+      "mod_license": "${mod_license}"
+    },
+    "fabric_properties": {
+      "minecraft_version": "1.21.11",
+      "loader_version": "0.18.4",
+      "yarn_mappings": "1.21.11+build.4",
+      "loom_version": "1.14.10",
+      "fabric_api_version": "0.141.1+1.21.11",
+      "java_version": "21",
+      "gradle_version": "9.2.1"
+    },
+    "dependencies": {
+      "gson_version": "2.13.2",
+      "slf4j_version": "2.0.17",
+      "annotations_version": "26.0.2"
+    },
+    "testing": {
+      "junit_version": "6.0.2"
+    }
+  },
+  "fabric.mod.json": {
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "authors": [
+      "${mod_author}"
+    ],
+    "contact": {
+      "homepage": "${mod_homepage}",
+      "sources": "${mod_sources}",
+      "issues": "${mod_issues}"
+    },
+    "license": "${mod_license}",
+    "icon": "assets/${mod_id}/icon.png",
+    "environment": "*",
+    "entrypoints": {
+      "main": [
+        "${maven_group}.${mod_name}"
+      ],
+      "client": [
+        "${maven_group}.client.${mod_name}Client"
+      ],
+      "fabric-datagen": [
+        "${maven_group}.client.datagen.${mod_name}DataGenerator"
+      ]
+    },
+    "mixins": [
+      "${mod_id}.mixins.json",
+      {
+        "config": "${mod_id}.client.mixins.json",
+        "environment": "client"
+      }
+    ],
+    "depends": {
+      "fabricloader": ">=${loader_version}",
+      "minecraft": "~${minecraft_version}",
+      "java": ">=${java_version}",
+      "fabric-api": "*"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mosberg/fabric-mod-snippets"
+  },
+  "bugs": {
+    "url": "https://github.com/mosberg/fabric-mod-snippets/issues"
+  },
+  "homepage": "https://mosberg.github.io/fabric-mod-snippets"
+}

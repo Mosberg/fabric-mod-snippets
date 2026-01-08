@@ -1,0 +1,17 @@
+{
+  "Fabric Entity Type": {
+    "prefix": "fabric-entity",
+    "description": "Register an EntityType",
+    "body": [
+      "public static final EntityType<${1:ExampleEntity}> ${2:EXAMPLE_ENTITY} = Registry.register(",
+      "    Registries.ENTITY_TYPE,",
+      "    Identifier.of(${3:MOD_ID}, \"${4:example_entity}\"),",
+      "    FabricEntityTypeBuilder.create(${5:SpawnGroup.CREATURE}, ${1:ExampleEntity}::new)",
+      "        .dimensions(EntityDimensions.fixed(${6:0.6F}, ${7:1.8F}))",
+      "        .trackRangeBlocks(${8:8})",
+      "        .trackedUpdateRate(${9:3})",
+      "        .build()",
+      ");"
+    ]
+  }
+}

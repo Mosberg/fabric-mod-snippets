@@ -1,0 +1,13 @@
+{
+  "Fabric Tool Item": {
+    "prefix": "fabric-tool",
+    "description": "Register a tool item",
+    "body": [
+      "public static final Item ${1:EXAMPLE_TOOL} = Registry.register(",
+      "    Registries.ITEM,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_tool}\"),",
+      "    new ${4:SwordItem}(${5:ToolMaterial.IRON}, ${6:3}, ${7:-2.4F}, new Item.Settings())",
+      ");"
+    ]
+  }
+}

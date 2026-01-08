@@ -1,0 +1,12 @@
+{
+  "Fabric Entity Attributes": {
+    "prefix": "fabric-entity-attrs",
+    "description": "Register default attributes for an entity",
+    "body": [
+      "FabricDefaultAttributeRegistry.register(",
+      "    ${1:EXAMPLE_ENTITY},",
+      "    ${2:ExampleEntity}.createAttributes()",
+      ");"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "Fabric Identifier": {
+    "prefix": "fid",
+    "description": "Create a Fabric Identifier using mod id",
+    "body": ["Identifier.of(${1:MOD_ID}, \"${2:name}\")"]
+  }
+}

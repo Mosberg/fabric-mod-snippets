@@ -1,0 +1,83 @@
+{
+  "Item Group": {
+    "prefix": "itemgroup",
+    "description": "Create a custom item group (creative tab)",
+    "body": [
+      "public static final RegistryKey<ItemGroup> ${1:EXAMPLE_GROUP} = RegistryKey.of(",
+      "    RegistryKeys.ITEM_GROUP,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_group}\")",
+      ");",
+      "",
+      "public static void registerItemGroups() {",
+      "    Registry.register(Registries.ITEM_GROUP, ${1:EXAMPLE_GROUP},",
+      "        ItemGroup.create(ItemGroup.Row.${4:TOP}, ${5:0})",
+      "            .displayName(Text.translatable(\"itemGroup.${2:MOD_ID}.${3:example_group}\"))",
+      "            .icon(() -> new ItemStack(${6:MOD_ITEMS.EXAMPLE_ITEM}))",
+      "            .entries((displayContext, entries) -> {",
+      "                ${7:// entries.add(MOD_ITEMS.EXAMPLE_ITEM);}",
+      "            })",
+      "            .build()",
+      "    );",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Add to Item Group": {
+    "prefix": "itemgroup.add",
+    "description": "Add item to existing item group",
+    "body": [
+      "ItemGroupEvents.modifyEntriesEvent(${1:ItemGroups.BUILDING_BLOCKS}).register(entries -> {",
+      "    entries.add(${2:MOD_ITEMS.EXAMPLE_ITEM});",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Add to Custom Item Group": {
+    "prefix": "itemgroup.add.custom",
+    "description": "Add items to custom item group",
+    "body": [
+      "ItemGroupEvents.modifyEntriesEvent(${1:MOD_ITEM_GROUPS.EXAMPLE_GROUP}).register(entries -> {",
+      "    entries.add(${2:MOD_ITEMS.EXAMPLE_ITEM});",
+      "    ${3:// entries.add(MOD_BLOCKS.EXAMPLE_BLOCK);}",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Add Multiple to Group": {
+    "prefix": "itemgroup.add.multiple",
+    "description": "Add multiple items to item group",
+    "body": [
+      "ItemGroupEvents.modifyEntriesEvent(${1:ItemGroups.INGREDIENTS}).register(entries -> {",
+      "    entries.add(${2:MOD_ITEMS.ITEM_1});",
+      "    entries.add(${3:MOD_ITEMS.ITEM_2});",
+      "    entries.add(${4:MOD_ITEMS.ITEM_3});",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Add Before Item": {
+    "prefix": "itemgroup.add.before",
+    "description": "Add item before another item in group",
+    "body": [
+      "ItemGroupEvents.modifyEntriesEvent(${1:ItemGroups.BUILDING_BLOCKS}).register(entries -> {",
+      "    entries.addBefore(${2:Items.STONE}, ${3:MOD_ITEMS.EXAMPLE_ITEM});",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Add After Item": {
+    "prefix": "itemgroup.add.after",
+    "description": "Add item after another item in group",
+    "body": [
+      "ItemGroupEvents.modifyEntriesEvent(${1:ItemGroups.BUILDING_BLOCKS}).register(entries -> {",
+      "    entries.addAfter(${2:Items.STONE}, ${3:MOD_ITEMS.EXAMPLE_ITEM});",
+      "});",
+      "$0"
+    ]
+  }
+}

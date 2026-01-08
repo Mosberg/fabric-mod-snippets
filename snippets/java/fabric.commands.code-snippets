@@ -1,0 +1,138 @@
+{
+  "Register Command": {
+    "prefix": "command.register",
+    "description": "Register a command",
+    "body": [
+      "CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {",
+      "    dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "        .executes(context -> {",
+      "            ${2:// Command logic}",
+      "            return 1;",
+      "        })",
+      "    );",
+      "});",
+      "$0"
+    ]
+  },
+
+  "Command with Permission": {
+    "prefix": "command.permission",
+    "description": "Command requiring permission level",
+    "body": [
+      "dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "    .requires(source -> source.hasPermissionLevel(${2:2}))",
+      "    .executes(context -> {",
+      "        ${3:// Command logic}",
+      "        return 1;",
+      "    })",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Command with String Argument": {
+    "prefix": "command.arg.string",
+    "description": "Command with string argument",
+    "body": [
+      "dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "    .then(CommandManager.argument(\"${2:name}\", StringArgumentType.${3:word}())",
+      "        .executes(context -> {",
+      "            String ${2:name} = StringArgumentType.getString(context, \"${2:name}\");",
+      "            ${4:// Command logic}",
+      "            return 1;",
+      "        })",
+      "    )",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Command with Integer Argument": {
+    "prefix": "command.arg.integer",
+    "description": "Command with integer argument",
+    "body": [
+      "dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "    .then(CommandManager.argument(\"${2:amount}\", IntegerArgumentType.integer(${3:0}, ${4:100}))",
+      "        .executes(context -> {",
+      "            int ${2:amount} = IntegerArgumentType.getInteger(context, \"${2:amount}\");",
+      "            ${5:// Command logic}",
+      "            return 1;",
+      "        })",
+      "    )",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Command with Player Argument": {
+    "prefix": "command.arg.player",
+    "description": "Command with player selector argument",
+    "body": [
+      "dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "    .then(CommandManager.argument(\"${2:target}\", EntityArgumentType.player())",
+      "        .executes(context -> {",
+      "            ServerPlayerEntity ${2:target} = EntityArgumentType.getPlayer(context, \"${2:target}\");",
+      "            ${3:// Command logic}",
+      "            return 1;",
+      "        })",
+      "    )",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Command with Block Position": {
+    "prefix": "command.arg.blockpos",
+    "description": "Command with block position argument",
+    "body": [
+      "dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "    .then(CommandManager.argument(\"${2:pos}\", BlockPosArgumentType.blockPos())",
+      "        .executes(context -> {",
+      "            BlockPos ${2:pos} = BlockPosArgumentType.getBlockPos(context, \"${2:pos}\");",
+      "            ${3:// Command logic}",
+      "            return 1;",
+      "        })",
+      "    )",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Command Send Feedback": {
+    "prefix": "command.feedback",
+    "description": "Send command feedback to player",
+    "body": [
+      "context.getSource().sendFeedback(() -> Text.literal(\"${1:Command executed!}\"), ${2:false});"
+    ]
+  },
+
+  "Command Send Error": {
+    "prefix": "command.error",
+    "description": "Send error message and fail command",
+    "body": [
+      "throw new CommandException(Text.literal(\"${1:Error message}\"));"
+    ]
+  },
+
+  "Subcommand": {
+    "prefix": "command.subcommand",
+    "description": "Command with subcommands",
+    "body": [
+      "dispatcher.register(CommandManager.literal(\"${1:mycommand}\")",
+      "    .then(CommandManager.literal(\"${2:subcommand1}\")",
+      "        .executes(context -> {",
+      "            ${3:// Subcommand 1 logic}",
+      "            return 1;",
+      "        })",
+      "    )",
+      "    .then(CommandManager.literal(\"${4:subcommand2}\")",
+      "        .executes(context -> {",
+      "            ${5:// Subcommand 2 logic}",
+      "            return 1;",
+      "        })",
+      "    )",
+      ");",
+      "$0"
+    ]
+  }
+}

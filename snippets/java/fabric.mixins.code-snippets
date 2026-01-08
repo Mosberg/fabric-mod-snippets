@@ -1,0 +1,160 @@
+{
+  "Mixin Class": {
+    "prefix": "mixin",
+    "description": "Create a basic Mixin class",
+    "body": [
+      "@Mixin(${1:TargetClass}.class)",
+      "public class ${2:TargetClass}Mixin {",
+      "    $0",
+      "}"
+    ]
+  },
+
+  "Mixin Inject": {
+    "prefix": "mixin.inject",
+    "description": "Inject code at a method point",
+    "body": [
+      "@Inject(method = \"${1:methodName}\", at = @At(\"${2:HEAD}\"))",
+      "private void ${3:onMethodName}(${4:CallbackInfo ci}) {",
+      "    ${5:// Your code here}",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Inject with Return": {
+    "prefix": "mixin.inject.return",
+    "description": "Inject code with returnable callback",
+    "body": [
+      "@Inject(method = \"${1:methodName}\", at = @At(\"${2:HEAD}\"), cancellable = true)",
+      "private void ${3:onMethodName}(${4:CallbackInfoReturnable<${5:ReturnType}>} cir) {",
+      "    ${6:// cir.setReturnValue(value);}",
+      "    ${7:// cir.cancel();}",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin ModifyVariable": {
+    "prefix": "mixin.modifyvariable",
+    "description": "Modify a local variable in a method",
+    "body": [
+      "@ModifyVariable(method = \"${1:methodName}\", at = @At(\"${2:STORE}\"), ordinal = ${3:0})",
+      "private ${4:Type} ${5:modifyVariableName}(${4:Type} ${6:original}) {",
+      "    ${7:return original;}",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin ModifyArg": {
+    "prefix": "mixin.modifyarg",
+    "description": "Modify a method argument",
+    "body": [
+      "@ModifyArg(method = \"${1:methodName}\", at = @At(value = \"INVOKE\", target = \"${2:Ltarget/Class;targetMethod()V}\"), index = ${3:0})",
+      "private ${4:Type} ${5:modifyArg}(${4:Type} ${6:original}) {",
+      "    ${7:return original;}",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Redirect": {
+    "prefix": "mixin.redirect",
+    "description": "Redirect a method call",
+    "body": [
+      "@Redirect(method = \"${1:methodName}\", at = @At(value = \"INVOKE\", target = \"${2:Ltarget/Class;targetMethod()V}\"))",
+      "private ${3:ReturnType} ${4:redirectMethod}(${5:// parameters}) {",
+      "    ${6:// Your redirect logic}",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Overwrite": {
+    "prefix": "mixin.overwrite",
+    "description": "Overwrite a method completely",
+    "body": [
+      "/**",
+      " * @author ${1:YourName}",
+      " * @reason ${2:Reason for overwriting}",
+      " */",
+      "@Overwrite",
+      "public ${3:void} ${4:methodName}(${5:}) {",
+      "    ${6:// Your implementation}",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Shadow Field": {
+    "prefix": "mixin.shadow.field",
+    "description": "Shadow a field from target class",
+    "body": ["@Shadow", "private ${1:Type} ${2:fieldName};", "$0"]
+  },
+
+  "Mixin Shadow Method": {
+    "prefix": "mixin.shadow.method",
+    "description": "Shadow a method from target class",
+    "body": [
+      "@Shadow",
+      "private ${1:void} ${2:methodName}(${3:}) {",
+      "    throw new AssertionError();",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Accessor": {
+    "prefix": "mixin.accessor",
+    "description": "Create an accessor interface for private fields",
+    "body": [
+      "@Mixin(${1:TargetClass}.class)",
+      "public interface ${2:TargetClass}Accessor {",
+      "    @Accessor(\"${3:fieldName}\")",
+      "    ${4:Type} ${5:getFieldName}();",
+      "    ",
+      "    @Accessor(\"${3:fieldName}\")",
+      "    void ${6:setFieldName}(${4:Type} ${7:value});",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Invoker": {
+    "prefix": "mixin.invoker",
+    "description": "Create an invoker interface for private methods",
+    "body": [
+      "@Mixin(${1:TargetClass}.class)",
+      "public interface ${2:TargetClass}Invoker {",
+      "    @Invoker(\"${3:methodName}\")",
+      "    ${4:ReturnType} ${5:invokeMethodName}(${6:});",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Mixin Client Side": {
+    "prefix": "mixin.client",
+    "description": "Create a client-side only Mixin",
+    "body": [
+      "@Environment(EnvType.CLIENT)",
+      "@Mixin(${1:TargetClass}.class)",
+      "public class ${2:TargetClass}Mixin {",
+      "    $0",
+      "}"
+    ]
+  },
+
+  "Mixin ModifyConstant": {
+    "prefix": "mixin.modifyconstant",
+    "description": "Modify a constant value in bytecode",
+    "body": [
+      "@ModifyConstant(method = \"${1:methodName}\", constant = @Constant(${2:intValue} = ${3:0}))",
+      "private ${4:int} ${5:modifyConstant}(${4:int} ${6:original}) {",
+      "    ${7:return original;}",
+      "}",
+      "$0"
+    ]
+  }
+}

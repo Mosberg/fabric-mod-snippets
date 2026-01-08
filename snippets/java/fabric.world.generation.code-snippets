@@ -1,0 +1,125 @@
+{
+  "Ore Generation": {
+    "prefix": "worldgen.ore",
+    "description": "Add ore generation to world",
+    "body": [
+      "BiomeModifications.addFeature(",
+      "    BiomeSelectors.foundInOverworld(),",
+      "    GenerationStep.Feature.${1:UNDERGROUND_ORES},",
+      "    ${2:MOD_PLACED_FEATURES.EXAMPLE_ORE}",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Configured Feature": {
+    "prefix": "worldgen.feature.configured",
+    "description": "Create a configured feature",
+    "body": [
+      "public static final RegistryKey<ConfiguredFeature<?, ?>> ${1:EXAMPLE_ORE} = RegistryKey.of(",
+      "    RegistryKeys.CONFIGURED_FEATURE,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_ore}\")",
+      ");",
+      "",
+      "public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {",
+      "    RuleTest ${4:stoneReplaceable} = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);",
+      "    RuleTest ${5:deepslateReplaceable} = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);",
+      "    ",
+      "    List<OreFeatureConfig.Target> ${6:overworldExampleOres} = List.of(",
+      "        OreFeatureConfig.createTarget(${4:stoneReplaceable}, ${7:MOD_BLOCKS.EXAMPLE_ORE}.getDefaultState()),",
+      "        OreFeatureConfig.createTarget(${5:deepslateReplaceable}, ${8:MOD_BLOCKS.DEEPSLATE_EXAMPLE_ORE}.getDefaultState())",
+      "    );",
+      "    ",
+      "    register(context, ${1:EXAMPLE_ORE}, Feature.ORE, new OreFeatureConfig(${6:overworldExampleOres}, ${9:9}));",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Placed Feature": {
+    "prefix": "worldgen.feature.placed",
+    "description": "Create a placed feature",
+    "body": [
+      "public static final RegistryKey<PlacedFeature> ${1:EXAMPLE_ORE} = RegistryKey.of(",
+      "    RegistryKeys.PLACED_FEATURE,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_ore}\")",
+      ");",
+      "",
+      "public static void bootstrap(Registerable<PlacedFeature> context) {",
+      "    RegistryEntryLookup<ConfiguredFeature<?, ?>> configuredFeatures = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);",
+      "    ",
+      "    register(context, ${1:EXAMPLE_ORE}, configuredFeatures.getOrThrow(${4:MOD_CONFIGURED_FEATURES.EXAMPLE_ORE}),",
+      "        ${5:ModOrePlacement}.${6:modifiersWithCount}(${7:12}, // Veins per chunk",
+      "            HeightRangePlacementModifier.${8:uniform}(YOffset.fixed(${9:-80}), YOffset.fixed(${10:80}))",
+      "        )",
+      "    );",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Ore Placement Modifiers": {
+    "prefix": "worldgen.ore.placement",
+    "description": "Common ore placement modifiers helper",
+    "body": [
+      "public class ${1:ModOrePlacement} {",
+      "    public static List<PlacementModifier> modifiers(PlacementModifier countModifier, PlacementModifier heightModifier) {",
+      "        return List.of(countModifier, SquarePlacementModifier.of(), heightModifier, BiomePlacementModifier.of());",
+      "    }",
+      "    ",
+      "    public static List<PlacementModifier> modifiersWithCount(int count, PlacementModifier heightModifier) {",
+      "        return modifiers(CountPlacementModifier.of(count), heightModifier);",
+      "    }",
+      "    ",
+      "    public static List<PlacementModifier> modifiersWithRarity(int chance, PlacementModifier heightModifier) {",
+      "        return modifiers(RarityFilterPlacementModifier.of(chance), heightModifier);",
+      "    }",
+      "}",
+      "$0"
+    ]
+  },
+
+  "Tree Feature": {
+    "prefix": "worldgen.tree",
+    "description": "Add tree generation to biome",
+    "body": [
+      "BiomeModifications.addFeature(",
+      "    BiomeSelectors.includeByKey(${1:BiomeKeys.PLAINS}),",
+      "    GenerationStep.Feature.${2:VEGETAL_DECORATION},",
+      "    ${3:MOD_PLACED_FEATURES.EXAMPLE_TREE}",
+      ");",
+      "$0"
+    ]
+  },
+
+  "Custom Structure": {
+    "prefix": "worldgen.structure",
+    "description": "Register a custom structure",
+    "body": [
+      "public static final RegistryKey<Structure> ${1:EXAMPLE_STRUCTURE} = RegistryKey.of(",
+      "    RegistryKeys.STRUCTURE,",
+      "    Identifier.of(${2:MOD_ID}, \"${3:example_structure}\")",
+      ");",
+      "",
+      "public static void bootstrap(Registerable<Structure> context) {",
+      "    RegistryEntryLookup<StructurePool> structurePools = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);",
+      "    ",
+      "    register(context, ${1:EXAMPLE_STRUCTURE},",
+      "        new JigsawStructure(",
+      "            new Structure.Config(",
+      "                context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(${4:BiomeTags.HAS_VILLAGE_PLAINS}),",
+      "                Map.of(MobCategory.${5:MONSTER}, new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.${6:STRUCTURE}, WeightedRandomList.create())),",
+      "                GenerationStep.Feature.${7:SURFACE_STRUCTURES},",
+      "                TerrainAdjustment.${8:BEARD_THIN}",
+      "            ),",
+      "            structurePools.getOrThrow(${9:MOD_STRUCTURE_POOLS.EXAMPLE_START}),",
+      "            ${10:7}, // Max depth",
+      "            ConstantHeight.of(YOffset.fixed(${11:0})),",
+      "            ${12:true} // Use expansion hack",
+      "        )",
+      "    );",
+      "}",
+      "$0"
+    ]
+  }
+}

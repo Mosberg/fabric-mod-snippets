@@ -1,0 +1,24 @@
+{
+  "Fabric Item Model Provider": {
+    "prefix": "fabric-item-model",
+    "description": "Item model datagen provider",
+    "body": [
+      "public class ${1:ModItemModelProvider} extends FabricModelProvider {",
+      "    public ${1:ModItemModelProvider}(FabricDataOutput output) {",
+      "        super(output);",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generateItemModels(ItemModelGenerator generator) {",
+      "        generator.register(${2:EXAMPLE_ITEM}, Models.${3:GENERATED});",
+      "        ${4:// generator.register(TOOL_ITEM, Models.HANDHELD);}",
+      "    }",
+      "",
+      "    @Override",
+      "    public void generateBlockStateModels(BlockStateModelGenerator generator) {",
+      "        ${5:// Leave empty if only generating item models}",
+      "    }",
+      "}"
+    ]
+  }
+}
